@@ -13,8 +13,8 @@ class TestCog(commands.Cog):
         await ctx.send("I can do stuff!")
 
     @commands.Cog.listener()
-    async def on_reaction_add(reaction, user):
-        channel = reaction.message.channel
+    async def on_raw_reaction_add(self, payload):
+        channel = self.bot.get_channel(payload.channel_id)
         await channel.send('I see you!')
 
     """

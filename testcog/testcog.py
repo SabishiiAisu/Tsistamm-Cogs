@@ -13,9 +13,9 @@ class TestCog(commands.Cog):
         await ctx.send("I can do stuff!")
 
     @commands.Cog.listener()
-    async def on_reaction_add(reaction, user):
+    async def on_reaction_add(self, ctx, reaction, user):
         channel = reaction.message.channel
-        await bot.send_message(channel, '{} has added {} to the message: {}'.format(user.name, reaction.emoji, reaction.message.content))
+        await ctx.send_message(channel, '{} has added {} to the message: {}'.format(user.name, reaction.emoji, reaction.message.content))
 
     """
     @commands.Cog.listener()

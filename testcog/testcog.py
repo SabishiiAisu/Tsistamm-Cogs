@@ -12,7 +12,8 @@ class TestCog(commands.Cog):
     async def test(self, ctx):
         """This does stuff!"""
         # Your code will go here
-        await self.bot.send_message(self.owner, "I can do stuff!")
+        author = ctx.author
+        await author.send("I can do stuff!")
 
     """
     @commands.Cog.listener()

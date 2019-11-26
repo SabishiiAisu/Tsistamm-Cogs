@@ -1,4 +1,5 @@
 from .testcog import TestCog
 
-def setup(bot):
-    bot.add_cog(TestCog())
+async def setup(bot):
+    cog = TestCog(bot)
+    bot.add_cog(cog)

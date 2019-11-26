@@ -16,5 +16,5 @@ class TestCog(commands.Cog):
 
     @client.event
     async def on_reaction_remove(reaction, user):
-         channel = reaction.message.channel
+        channel = reaction.message.channel
         await client.send_message(channel, '{} has removed {} from the message: {}'.format(user.name, reaction.emoji, reaction.message.content))

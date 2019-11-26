@@ -15,7 +15,7 @@ class TestCog(commands.Cog):
     @commands.Cog.listener()
     async def on_reaction_add(self, ctx, reaction, user):
         channel = reaction.message.channel
-        await ctx.send('I see you!')
+        await bot.send('I see you!')
 
     """
     @commands.Cog.listener()

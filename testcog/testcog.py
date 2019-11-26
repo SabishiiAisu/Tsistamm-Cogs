@@ -19,13 +19,14 @@ class TestCog(commands.Cog):
     async def on_raw_reaction_add(self, payload):
         author = self.bot.get_user(payload.user_id)
         emoji = self.bot.get_emoji(payload.emoji_id)
-        entry = (author.name, emoji.name)
+        #entry = (author.name, emoji.name)
         if (author.bot or author != self.owner):
             return
         # channel = self.bot.get_channel(payload.channel_id)
         #self.mylist.append(entry)
-        await author.send(entry)
+        await author.send(emoji.name)
 
+"""
     @commands.Cog.listener()
     async def on_raw_reaction_remove(self, payload):
         author = self.bot.get_user(payload.user_id)
@@ -36,3 +37,4 @@ class TestCog(commands.Cog):
         # channel = self.bot.get_channel(payload.channel_id)
         #self.mylist.remove(entry)
         await author.send(entry)
+"""

@@ -12,8 +12,9 @@ class TestCog(commands.Cog):
     async def test(self, ctx):
         """This does stuff!"""
         # Your code will go here
-        await ctx.send("I can do stuff!")
+        await self.bot.send_message(self.owner, "I can do stuff!")
 
+    """
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
         author = self.bot.get_user(payload.user_id)
@@ -31,3 +32,4 @@ class TestCog(commands.Cog):
         channel = self.bot.get_channel(payload.channel_id)
         # self.list.remove(self.bot.get_emoji(payload.emoji_id).name)
         await self.bot.send_message(self.owner, 'Stop hiding!')
+    """

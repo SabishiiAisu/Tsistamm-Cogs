@@ -15,7 +15,7 @@ class TestCog(commands.Cog):
     @commands.Cog.listener()
     async def on_reaction_add(self, ctx, reaction, user):
         channel = reaction.message.channel
-        await ctx.send_message(channel, '{} has added {} to the message: {}'.format(user.name, reaction.emoji, reaction.message.content))
+        await ctx.send('I see you!')
 
     """
     @commands.Cog.listener()

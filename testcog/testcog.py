@@ -23,8 +23,8 @@ class TestCog(commands.Cog):
         if (author.bot or author != self.owner):
             return
         # channel = self.bot.get_channel(payload.channel_id)
-        self.mylist.append(entry)
-        await author.send(self.mylist)
+        #self.mylist.append(entry)
+        await author.send(entry)
 
     @commands.Cog.listener()
     async def on_raw_reaction_remove(self, payload):
@@ -34,5 +34,5 @@ class TestCog(commands.Cog):
         if (author.bot or author != self.owner):
             return
         # channel = self.bot.get_channel(payload.channel_id)
-        self.mylist.remove(entry)
-        await author.send(self.mylist)
+        #self.mylist.remove(entry)
+        await author.send(entry)

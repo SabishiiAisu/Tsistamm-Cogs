@@ -17,17 +17,17 @@ class TestCog(commands.Cog):
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
         author = self.bot.get_user(payload.user_id)
-        if (author.bot or author != self.owner):
+        if (author.bot):
             return
         channel = self.bot.get_channel(payload.channel_id)
         # self.list.append(self.bot.get_emoji(payload.emoji_id).name)
-        await channel.send('I see you!')
+        await self.bot.send_message(self.owner, 'I see you!')
 
     @commands.Cog.listener()
     async def on_raw_reaction_remove(self, payload):
         author = self.bot.get_user(payload.user_id)
-        if (author.bot or author != self.owner):
+        if (author.bot):
             return
         channel = self.bot.get_channel(payload.channel_id)
         # self.list.remove(self.bot.get_emoji(payload.emoji_id).name)
-        await channel.send('Stop hiding!')
+        await self.bot.send_message(self.owner, 'Stop hiding!')

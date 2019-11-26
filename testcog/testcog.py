@@ -8,7 +8,7 @@ class TestCog(commands.Cog):
         """This does stuff!"""
         # Your code will go here
         await ctx.send("I can do stuff!")
-    
+    """
     @commands.Cog.listener()
     async def on_reaction_add(self, ctx, reaction, user):
         channel = reaction.message.channel
@@ -18,3 +18,4 @@ class TestCog(commands.Cog):
     async def on_reaction_remove(self, ctx, reaction, user):
         channel = reaction.message.channel
         await ctx.send_message(channel, '{} has removed {} from the message: {}'.format(user.name, reaction.emoji, reaction.message.content))
+    """

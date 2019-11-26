@@ -5,7 +5,7 @@ class TestCog(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.owner = bot.get_user('136242970000097280')
+        self.owner = bot.get_user(136242970000097280)
         # self.list = []
     
     @commands.command()

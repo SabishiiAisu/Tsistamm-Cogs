@@ -13,7 +13,7 @@ class TestCog(commands.Cog):
         await ctx.send("I can do stuff!")
 
     @commands.Cog.listener()
-    async def on_reaction_add(self, ctx, reaction, user):
+    async def on_reaction_add(reaction, user):
         channel = reaction.message.channel
         await channel.send('I see you!')
 

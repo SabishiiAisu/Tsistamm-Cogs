@@ -9,12 +9,12 @@ class TestCog(commands.Cog):
         # Your code will go here
         await ctx.send("I can do stuff!")
     
-    @client.event
-    async def on_reaction_add(reaction, user):
+    @commands.Cog.listener()
+    async def on_reaction_add(self, ctx, reaction, user):
         channel = reaction.message.channel
-        await client.send_message(channel, '{} has added {} to the message: {}'.format(user.name, reaction.emoji, reaction.message.content))
+        await ctx.send_message(channel, '{} has added {} to the message: {}'.format(user.name, reaction.emoji, reaction.message.content))
 
-    @client.event
-    async def on_reaction_remove(reaction, user):
+    @commands.Cog.listener()
+    async def on_reaction_remove(self, ctx, reaction, user):
         channel = reaction.message.channel
-        await client.send_message(channel, '{} has removed {} from the message: {}'.format(user.name, reaction.emoji, reaction.message.content))
+        await ctx.send_message(channel, '{} has removed {} from the message: {}'.format(user.name, reaction.emoji, reaction.message.content))

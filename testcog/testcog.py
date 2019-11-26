@@ -6,7 +6,7 @@ class TestCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.owner = bot.get_user(136242970000097280)
-        self.mylist = [1,2,3,4]
+        self.mylist = []
     
     @commands.command()
     async def test(self, ctx):
@@ -18,17 +18,21 @@ class TestCog(commands.Cog):
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
         author = self.bot.get_user(payload.user_id)
+        emoji = self.bot.get_emoji(payload.emoji_id)
+        entry = (author.name, emoji.name)
         if (author.bot or author != self.owner):
             return
         # channel = self.bot.get_channel(payload.channel_id)
-        # self.list.append(self.bot.get_emoji(payload.emoji_id).name)
-        await author.send('I see you!')
+        self.mylist.append(entry)
+        await author.send(self.mylist)
 
     @commands.Cog.listener()
     async def on_raw_reaction_remove(self, payload):
         author = self.bot.get_user(payload.user_id)
+        emoji = self.bot.get_emoji(payload.emoji_id)
+        entry = (author.name, emoji.name)
         if (author.bot or author != self.owner):
             return
         # channel = self.bot.get_channel(payload.channel_id)
-        # self.list.remove(self.bot.get_emoji(payload.emoji_id).name)
-        await author.send('Stop hiding!')
+        self.mylist.remove(entry)
+        await author.send(self.mylist)

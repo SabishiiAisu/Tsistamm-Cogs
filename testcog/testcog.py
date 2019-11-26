@@ -13,7 +13,7 @@ class TestCog(commands.Cog):
         """This does stuff!"""
         # Your code will go here
         author = ctx.author
-        await author.send("I can do stuff!")
+        await author.send(self.owner.name)
 
     """
     @commands.Cog.listener()

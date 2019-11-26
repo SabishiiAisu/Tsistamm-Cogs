@@ -21,7 +21,6 @@ class TestCog(commands.Cog):
             return
         channel = self.bot.get_channel(payload.channel_id)
         # self.list.append(self.bot.get_emoji(payload.emoji_id).name)
-        print('reaction added!')
         await channel.send('I see you!')
 
     @commands.Cog.listener()
@@ -31,5 +30,4 @@ class TestCog(commands.Cog):
             return
         channel = self.bot.get_channel(payload.channel_id)
         # self.list.remove(self.bot.get_emoji(payload.emoji_id).name)
-        print('reaction removed!')
         await channel.send('Stop hiding!')

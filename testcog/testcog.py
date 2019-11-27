@@ -24,7 +24,7 @@ class TestCog(commands.Cog):
             return
         # channel = self.bot.get_channel(payload.channel_id)
         #self.mylist.append(entry)
-        await author.send(emoji.name)
+        await author.send(author.display_name)
 
 """
     @commands.Cog.listener()

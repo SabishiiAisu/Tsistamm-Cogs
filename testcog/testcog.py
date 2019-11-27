@@ -18,7 +18,7 @@ class TestCog(commands.Cog):
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
         author = self.bot.get_user(payload.user_id)
-        emoji = self.bot.get_emoji(payload.emoji_id)
+        # emoji = self.bot.get_emoji(payload.emoji_id)
         #entry = (author.name, emoji.name)
         if (author.bot or author != self.owner):
             return

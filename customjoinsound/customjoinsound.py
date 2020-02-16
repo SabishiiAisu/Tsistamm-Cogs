@@ -8,7 +8,7 @@ class CustomJoinSound(commands.Cog):
         self.owner = bot.get_user(136242970000097280)
         self.mylist = []
     
-    @bot.group()
+    @commands.group()
     async def cjs(ctx):
         if ctx.invoked_subcommand is None:
             await ctx.send('Invalid subcommand passed...')

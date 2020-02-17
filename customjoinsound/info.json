@@ -1,0 +1,19 @@
+{
+    "author": [
+      "Tsistamm"
+    ],
+    "bot_version": [
+      3,
+      3,
+      1
+    ],
+    "description": "Play play custom sound for user join.",
+    "hidden": false,
+    "install_msg": "Thanks for installing.",
+    "requirements": [],
+    "short": "Custom Join Sounds",
+    "tags": [
+      "fun",
+      "tsistamm"
+    ]
+  }

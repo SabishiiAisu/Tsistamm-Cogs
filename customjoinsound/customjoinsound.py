@@ -7,7 +7,12 @@ class CustomJoinSound(commands.Cog):
         self.bot = bot
         self.owner = bot.get_user(136242970000097280)
         self.mylist = []
-    
+
+    @commands.command()
+    async def cjs(ctx):
+        await ctx.send('Something!')
+
+    """
     @commands.group()
     async def cjs(ctx):
         if ctx.invoked_subcommand is None:
@@ -16,3 +21,4 @@ class CustomJoinSound(commands.Cog):
     @cjs.command()
     async def setsound(ctx):
         await ctx.send('Setting sound!')
+    """

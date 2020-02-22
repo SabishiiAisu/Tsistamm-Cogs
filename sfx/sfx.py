@@ -23,20 +23,19 @@ class Sfx(commands.Cog):
     async def sfx(self, ctx, sfx_name):
         user = ctx.author
         voice_channel = user.voice.channel
-        all_sfx = self.config.sfx()
-        async with all_sfx as sfx_list:
-            if sfx_name in sfx_list:
-                vol = sfx_list[sfx_name]['volume']
-                file_path = '{}/{}.mp3'.format(data_manager.cog_data_path(self), sfx_name)
-                if os.path.isfile(file_path):
-                    if voice_channel != None:
-                        await self.playsound(file_path, vol, voice_channel)
-                    else:
-                        await ctx.send('User is not in a channel.')
+        sfx_list = await self.config.get_raw('sfx')
+        if sfx_name in sfx_list:
+            vol = sfx_list[sfx_name]['volume']
+            file_path = '{}/{}.mp3'.format(data_manager.cog_data_path(self), sfx_name)
+            if os.path.isfile(file_path):
+                if voice_channel != None:
+                    await self.playsound(file_path, vol, voice_channel)
                 else:
-                    await ctx.send("Can't seem to find the file. Please contact an admin!")
+                    await ctx.send('User is not in a channel.')
             else:
-                await ctx.send('{} does not exist!'.format(sfx_name))
+                await ctx.send("Can't seem to find the file. Please contact an admin!")
+        else:
+            await ctx.send('{} does not exist!'.format(sfx_name))
     
     @commands.command()
     async def addsfx(self, ctx, sfx_name, volume=75):
@@ -61,34 +60,31 @@ class Sfx(commands.Cog):
     @commands.command()
     async def setvol(self, ctx, sfx_name, volume: int):
         if isinstance(volume, int) and volume in range(1, 201):
-            all_sfx = self.config.sfx()
-            async with all_sfx as sfx_list:
-                if sfx_name in sfx_list:
-                    await self.config.set_raw('sfx', sfx_name, 'volume', value=volume)
-                    await ctx.send('{} set to volume {}.'.format(sfx_name, volume))
-                else:
-                    await ctx.send('{} does not exist!'.format(sfx_name))
+            sfx_list = await self.config.get_raw('sfx')
+            if sfx_name in sfx_list:
+                await self.config.set_raw('sfx', sfx_name, 'volume', value=volume)
+                await ctx.send('{} set to volume {}.'.format(sfx_name, volume))
+            else:
+                await ctx.send('{} does not exist!'.format(sfx_name))
         else:
             await ctx.send('Volume must be within the range 1-200.')
 
     @commands.command()
     async def getvol(self, ctx, sfx_name):
-        all_sfx = self.config.sfx()
-        async with all_sfx as sfx_list:
-            if sfx_name in sfx_list:
-                await ctx.send(sfx_list[sfx_name]['volume'])
-            else:
-                await ctx.send('{} does not exist!'.format(sfx_name))
+        sfx_list = await self.config.get_raw('sfx')
+        if sfx_name in sfx_list:
+            await ctx.send(sfx_list[sfx_name]['volume'])
+        else:
+            await ctx.send('{} does not exist!'.format(sfx_name))
 
     @commands.command()
     async def allsfx(self, ctx):
         # TODO: DM list of all sfx
-        all_sfx = self.config.sfx()
+        sfx_list = await self.config.get_raw('sfx')
         embed = discord.Embed()
         message = ''
-        async with all_sfx as sfx_list:
-            for val in sfx_list:
-                message += val + '\n'
+        for val in sfx_list:
+            message += val + '\n'
         embed.title = 'List of available SFX:'
         embed.description = message
         await ctx.author.send(embed=embed)

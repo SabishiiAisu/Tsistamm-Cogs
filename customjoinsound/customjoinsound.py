@@ -15,54 +15,51 @@ class CustomJoinSound(commands.Cog):
 
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
-        users = self.config.users()
-        async with users as user_list:
-            if str(member.id) in user_list:
-                volume = user_list[str(member.id)]['volume']
-                file_name = user_list[str(member.id)]['sfx']
-                file_path = str(data_manager.cog_data_path(self)) + '/' + file_name
-                if after.channel is not None and after.channel != member.guild.afk_channel and not await self.isrestricted(after.channel.id):
-                    if before.channel is not None:
-                        if before.channel.id != after.channel.id:
-                            if os.path.isfile(file_path):
-                                await self.playsound(file_path, volume, after.channel)
-                    else:
+        user_list = await self.config.get_raw('users')
+        if str(member.id) in user_list:
+            volume = user_list[str(member.id)]['volume']
+            file_name = user_list[str(member.id)]['sfx']
+            file_path = str(data_manager.cog_data_path(self)) + '/' + file_name
+            if after.channel is not None and after.channel != member.guild.afk_channel and not await self.isrestricted(after.channel.id):
+                if before.channel is not None:
+                    if before.channel.id != after.channel.id:
                         if os.path.isfile(file_path):
                             await self.playsound(file_path, volume, after.channel)
+                else:
+                    if os.path.isfile(file_path):
+                        await self.playsound(file_path, volume, after.channel)
 
     @commands.command()
     async def setjoinvol(self, ctx, username, volume: int):
         if isinstance(volume, int) and volume in range(1, 201):
-            all_users = self.config.users()
+            user_list = await self.config.get_raw('users')
             has_sound = False
             user_id = None
-            async with all_users as user_list:
-                for user in user_list:
-                    if username == user_list[user]['display_name']:
-                        has_sound = True
-                        user_id = user
-                if has_sound:
-                    await self.config.set_raw('users', user_id, 'volume', value=volume)
-                    await ctx.send("{}'s custom join sound volume set to {}.".format(username, volume))
-                else:
-                    await ctx.send('{} does not have a custom join sound!'.format(username))
-        else:
-            await ctx.send('Volume must be within the range 1-200.')
-
-    @commands.command()
-    async def getjoinvol(self, ctx, username):
-        all_users = self.config.users()
-        has_sound = False
-        user_id = None
-        async with all_users as user_list:
             for user in user_list:
                 if username == user_list[user]['display_name']:
                     has_sound = True
                     user_id = user
             if has_sound:
-                await ctx.send(user_list[user_id]['volume'])
+                await self.config.set_raw('users', user_id, 'volume', value=volume)
+                await ctx.send("{}'s custom join sound volume set to {}.".format(username, volume))
             else:
                 await ctx.send('{} does not have a custom join sound!'.format(username))
+        else:
+            await ctx.send('Volume must be within the range 1-200.')
+
+    @commands.command()
+    async def getjoinvol(self, ctx, username):
+        user_list = await self.config.get_raw('users')
+        has_sound = False
+        user_id = None
+        for user in user_list:
+            if username == user_list[user]['display_name']:
+                has_sound = True
+                user_id = user
+        if has_sound:
+            await ctx.send(user_list[user_id]['volume'])
+        else:
+            await ctx.send('{} does not have a custom join sound!'.format(username))
 
     @commands.command()
     async def setrestrictedchannel(self, ctx, channel_name):

@@ -1,0 +1,21 @@
+{
+  "author": [
+    "Tsistamm"
+  ],
+  "bot_version": [
+    3,
+    3,
+    1
+  ],
+  "description": "Play sound clips.",
+  "hidden": false,
+  "install_msg": "Thanks for installing.",
+  "requirements": [
+    "ffmpeg"
+  ],
+  "short": "Sound Effects",
+  "tags": [
+    "fun",
+    "tsistamm"
+  ]
+}

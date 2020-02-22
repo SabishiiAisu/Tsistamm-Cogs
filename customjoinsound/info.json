@@ -7,10 +7,12 @@
       3,
       1
     ],
-    "description": "Play play custom sound for user join.",
+    "description": "Play custom sound for user join.",
     "hidden": false,
     "install_msg": "Thanks for installing.",
-    "requirements": [],
+    "requirements": [
+      "ffmpeg"
+    ],
     "short": "Custom Join Sounds",
     "tags": [
       "fun",
